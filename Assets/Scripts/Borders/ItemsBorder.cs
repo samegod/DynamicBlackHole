@@ -1,12 +1,11 @@
 ﻿using Items.Core;
-using ItemsTarget;
 using UnityEngine;
 
-namespace BlackHoles
+namespace Borders
 {
-    public class BlackHole : Target
+    public class ItemsBorder : MonoBehaviour
     {
-        private void OnTriggerEnter2D(Collider2D other)
+        public void OnTriggerEnter2D(Collider2D other)
         {
             var item = other.transform.GetComponent<Item>();
 
@@ -14,7 +13,6 @@ namespace BlackHoles
                 return;
 
             item.Push();
-            Debug.Log("Item consumed");
         }
     }
 }
