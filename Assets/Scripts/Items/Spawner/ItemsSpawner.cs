@@ -1,6 +1,7 @@
 ﻿using BlackHoles;
 using Items.Core;
 using Items.Factory;
+using Items.Pool;
 using UnityEngine;
 using Zenject;
 
@@ -42,7 +43,7 @@ namespace Items.Spawner
             newPosition.x = Random.Range(firstSpawnCorner.position.x, secondSpawnCorner.position.x);
             newPosition.y = Random.Range(firstSpawnCorner.position.y, secondSpawnCorner.position.y);
             
-            Item newItem = _itemsFactory.CreateItem(newPosition);
+            Item newItem = ItemsPool.Instance.Pop(_itemsFactory.CreateItem(newPosition));
             newItem.MoveToTarget(blackHole);
         }
     }

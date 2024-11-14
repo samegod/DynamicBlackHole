@@ -1,16 +1,18 @@
-using System;
+using Items.Pool;
 using ItemsTarget;
+using Pool;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Items.Core
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Item : MonoBehaviour, IPointerDownHandler
+    public class Item : MonoBehaviourPoolObject, IPointerDownHandler, IPointerUpHandler
     {
         [SerializeField] private ItemTypeId type;
         [SerializeField] private float speed;
-
+        [SerializeField] private float pushStrength;
+        
         private Rigidbody2D _rigidbody;
         private Target _target;
         private bool _moveToTarget;
@@ -18,6 +20,8 @@ namespace Items.Core
         private float _maxSpeed = 2;
 
         public ItemTypeId TypeId => type;
+
+        public Rigidbody2D Rigidbody => _rigidbody;
 
         private void Awake()
         {
@@ -32,8 +36,13 @@ namespace Items.Core
                 direction.Normalize();
                 direction *= speed;
 
-                _rigidbody.velocity = Vector3.Lerp(_rigidbody.velocity, direction, Time.deltaTime);
+                _rigidbody.velocity += (Vector2)(direction * Time.deltaTime);
             }
+        }
+
+        public void MoveToTarget()
+        {
+            _moveToTarget = true;
         }
 
         public void MoveToTarget(Target target)
@@ -42,10 +51,24 @@ namespace Items.Core
             _moveToTarget = true;
         }
 
+        public void StopMovingToTarget()
+        {
+            _moveToTarget = false;
+        }
+
         public void OnPointerDown(PointerEventData eventData)
         {
-            Debug.Log("wo");
-            _rigidbody.AddForce(Vector2.left);
+            
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            
+        }
+
+        public override void Push()
+        {
+            ItemsPool.Instance.Push(this);
         }
     }
 }
