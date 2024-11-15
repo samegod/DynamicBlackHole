@@ -9,6 +9,9 @@ namespace Items.Core
     [RequireComponent(typeof(Rigidbody2D))]
     public class Item : MonoBehaviourPoolObject, IPointerDownHandler, IPointerUpHandler
     {
+        [SerializeField] private float lowestAppearMass;
+        [SerializeField] private float highestAppearMass;
+        [SerializeField] private float mass;
         [SerializeField] private ItemTypeId type;
         [SerializeField] private float speed;
         [SerializeField] private float pushStrength;
@@ -20,8 +23,9 @@ namespace Items.Core
         private float _maxSpeed = 2;
 
         public ItemTypeId TypeId => type;
-
-        public Rigidbody2D Rigidbody => _rigidbody;
+        public float Mass => mass;
+        public float LowestAppearMass => lowestAppearMass;
+        public float HighestAppearMass => highestAppearMass;
 
         private void Awake()
         {

@@ -1,6 +1,7 @@
-﻿using Infrastructure.StaticData;
+﻿using Core.Growth;
+using Core.ItemsPrefabs.Provider;
+using Infrastructure.StaticData;
 using Items.Factory;
-using UnityEngine;
 using Zenject;
 
 namespace Infrastructure.Installers
@@ -15,6 +16,7 @@ namespace Infrastructure.Installers
         public override void InstallBindings()
         {
             BindInfrastructureServices();
+            BindProviders();
             BindGameServices();
             BindGameFactories();
         }
@@ -24,9 +26,15 @@ namespace Infrastructure.Installers
             Container.BindInterfacesTo<BootstrapInstaller>().FromInstance(this).AsSingle();
         }
 
-        public void BindGameServices()
+        private void BindProviders()
+        {
+            Container.Bind<IItemsPrefabsProvider>().To<ItemsPrefabsProvider>().AsSingle();
+        }
+
+        private void BindGameServices()
         {
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
+            Container.Bind<IGrowthManager>().To<GrowthManager>().AsSingle();
         }
 
         private void BindGameFactories()

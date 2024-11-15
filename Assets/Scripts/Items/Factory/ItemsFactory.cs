@@ -15,12 +15,12 @@ namespace Items.Factory
         
         public Item CreateItem()
         {
-            return Object.Instantiate(_staticData.GetItemPrefab(ItemTypeId.Test));
+            return Object.Instantiate(_staticData.GetItemPrefab(ItemTypeId.Positive));
         }
 
         public Item CreateItem(Vector3 position)
         {
-            return Object.Instantiate(_staticData.GetItemPrefab(ItemTypeId.Test), position, Quaternion.identity);
+            return Object.Instantiate(_staticData.GetItemPrefab(ItemTypeId.Positive), position, Quaternion.identity);
         }
     }
 }

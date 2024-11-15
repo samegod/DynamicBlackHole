@@ -3,7 +3,7 @@
     public enum ItemTypeId
     {
         None = 0,
-        Test = 1,
-        
+        Positive = 1,
+        Negative = 2,
     }
 }
